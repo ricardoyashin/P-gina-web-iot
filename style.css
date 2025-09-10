@@ -169,3 +169,25 @@ body {
     padding: 2rem;
     height: 2000px; /* Para poder hacer scroll */
 }
+/* --- Estilos para el botón de "Volver Arriba" --- */
+#btnVolverArriba {
+  display: none; /* Oculto por defecto */
+  position: fixed; /* Se queda fijo en la pantalla */
+  bottom: 20px; /* Distancia desde abajo */
+  right: 30px; /* Distancia desde la derecha */
+  z-index: 99; /* Se asegura que esté por encima de otros elementos */
+  border: none;
+  outline: none;
+  background-color: var(--primary-color); /* Usa el color rojo que definimos */
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+#btnVolverArriba:hover {
+  background-color: #333; /* Color más oscuro al pasar el mouse */
+}
+

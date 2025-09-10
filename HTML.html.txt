@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Navegación Responsivo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="#" class="nav-logo">MiProyecto</a>
+                <ul class="nav-links">
+                    <li><a href="#">Productos</a></li>
+                    <li><a href="#">Sectores</a></li>
+                    <li><a href="#">Recursos</a></li>
+                    <li><a href="#">Clientes</a></li>
+                    <li><a href="#">Partners</a></li>
+                    <li><a href="#">Desarrolladores</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-right">
+                <a href="#" class="nav-country">🇲🇽</a>
+                <a href="#" class="btn btn-secondary">Ver cuentas</a>
+                <a href="#" class="btn btn-primary">Contactar especialista</a>
+            </div>
+
+            <button class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="content">
+        <h1>Contenido Principal de la Página</h1>
+        <p>Este es el espacio donde iría el resto de tu página web.</p>
+    </main>
+    
+    <script src="script.js"></script>
+</body>
+</html>

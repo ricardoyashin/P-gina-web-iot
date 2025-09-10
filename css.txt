@@ -1,0 +1,171 @@
+ --- Estilos Generales y Variables --- 
+root {
+    --primary-color #e60000;  Un rojo similar a Oracle 
+    --dark-color #333;
+    --light-color #fff;
+    --border-color #ccc;
+    --text-color #555;
+}
+
+ {
+    box-sizing border-box;
+    margin 0;
+    padding 0;
+}
+
+body {
+    font-family Arial, sans-serif;
+}
+
+ --- Estructura de la Barra de Navegación --- 
+.navbar {
+    background-color var(--light-color);
+    border-bottom 1px solid var(--border-color);
+    padding 0 1rem;
+    position sticky;
+    top 0;
+    z-index 1000;
+}
+
+.nav-container {
+    display flex;
+    justify-content space-between;
+    align-items center;
+    height 60px;
+    max-width 1200px;
+    margin 0 auto;
+}
+
+.nav-left {
+    display flex;
+    align-items center;
+}
+
+.nav-logo {
+    font-weight bold;
+    font-size 1.5rem;
+    color var(--primary-color);
+    text-decoration none;
+}
+
+ --- Estilos de los Enlaces (Inicialmente Ocultos en Móvil) --- 
+.nav-links {
+    display none;  Ocultos por defecto 
+    list-style none;
+    flex-direction column;
+    background-color var(--light-color);
+    position absolute;
+    top 60px;
+    left 0;
+    width 100%;
+    padding 1rem 0;
+    border-bottom 1px solid var(--border-color);
+}
+
+.nav-links.active {
+    display flex;  Se muestran con la clase 'active' 
+}
+
+.nav-links li {
+    text-align center;
+    margin 0.5rem 0;
+}
+
+.nav-links a {
+    color var(--text-color);
+    text-decoration none;
+    font-size 1rem;
+    padding 0.5rem 1rem;
+    display block;
+}
+
+.nav-links ahover {
+    color var(--primary-color);
+}
+
+ --- Estilos de los Botones a la Derecha --- 
+.nav-right {
+    display none;  Ocultos en móvil para simplicidad 
+    align-items center;
+}
+
+.nav-country {
+    font-size 1.5rem;
+    text-decoration none;
+    margin-right 1rem;
+}
+
+.btn {
+    padding 0.5rem 1rem;
+    border-radius 4px;
+    text-decoration none;
+    font-size 0.9rem;
+    margin-left 0.5rem;
+    text-wrap nowrap;
+}
+
+.btn-primary {
+    background-color var(--dark-color);
+    color var(--light-color);
+    border 1px solid var(--dark-color);
+}
+.btn-primaryhover {
+    background-color #555;
+}
+
+.btn-secondary {
+    background-color transparent;
+    color var(--dark-color);
+    border 1px solid var(--dark-color);
+}
+.btn-secondaryhover {
+    background-color #f2f2f2;
+}
+
+ --- Estilo del Botón Hamburguesa --- 
+.hamburger {
+    display block;
+    cursor pointer;
+    background none;
+    border none;
+}
+
+.bar {
+    display block;
+    width 25px;
+    height 3px;
+    margin 5px auto;
+    background-color var(--dark-color);
+    transition all 0.3s ease-in-out;
+}
+
+ --- Estilos para Escritorio (Media Query) --- 
+@media (min-width 992px) {
+    .hamburger {
+        display none;  Ocultar hamburguesa en escritorio 
+    }
+
+    .nav-links {
+        display flex;  Mostrar enlaces 
+        position static;
+        flex-direction row;
+        width auto;
+        border none;
+        padding 0;
+        margin-left 2rem;
+    }
+
+    .nav-links li {
+        margin 0 0.75rem;
+    }
+
+    .nav-right {
+        display flex;  Mostrar botones en escritorio 
+    }
+}
+
+ Contenido de ejemplo para ver el efecto del menú pegajoso 
+.content {
+    padding 2rem;
+    height 2000px;  Para poder hacer scroll 
+}

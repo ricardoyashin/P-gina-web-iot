@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma Web · Análisis Espectral (SIAS)</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Barra de Navegación Unificada -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="brand">
+                    <div class="brand-icon" aria-hidden="true">◈</div>
+                    <div class="brand-text">
+                        <span class="brand-title">Análisis Espectral <span class="brand-tag">(SIAS)</span></span>
+                        <span class="brand-subtitle">PLATAFORMA DE TELEMETRÍA Y DATOS</span>
+                    </div>
+                </a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="dashboard.html" class="active-link">Plataforma web</a></li>
+                    <li><a href="app.html">Vista móvil</a></li>
+                    <li><a href="desarrolladores.html">Documentación</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-right">
+                <span class="pill pill-green" id="statusBadge">● Modo local listo</span>
+            </div>
+
+            <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú de navegación">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="main-container">
+
+        <!-- Panel Superior: Conexión de Hardware y Carga de Archivos -->
+        <section class="two-col-grid">
+            <!-- Tarjeta 1: Conexión con Prototipo ESP32 -->
+            <article class="card">
+                <div class="card-header" style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem;">
+                    <div>
+                        <span class="section-kicker">ADQUISICIÓN EN TIEMPO REAL</span>
+                        <h2>Conectar prototipo de espectrómetro</h2>
+                        <p class="card-subtitle">Enlace directo con ESP32 (AS7341 + AS7263 / Hamamatsu)</p>
+                    </div>
+                    <span class="pill pill-amber" id="hwConnectionPill">Desconectado</span>
+                </div>
+
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.2rem;">
+                    Conecta tu nodo ESP32 por cable USB (Serial) o Bluetooth para capturar lecturas espectrales en vivo, o genera una muestra sintética de prueba.
+                </p>
+
+                <div class="hero-actions">
+                    <button type="button" class="btn btn-soft" id="btnConnectSerial">🔌 Conectar USB (Serial)</button>
+                    <button type="button" class="btn btn-outline" id="btnConnectBle">📡 Conectar Bluetooth</button>
+                    <button type="button" class="btn btn-outline" id="btnSimulate">+ Simular muestra</button>
+                </div>
+                <p id="hwLog" style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.85rem;">
+                    Esperando acción del usuario...
+                </p>
+            </article>
+
+            <!-- Tarjeta 2: Subir y Exportar Datos Espectrales -->
+            <article class="card">
+                <div class="card-header">
+                    <span class="section-kicker">ARCHIVOS Y PORTABILIDAD</span>
+                    <h2>Subir datos espectrales</h2>
+                    <p class="card-subtitle">Importa registros en formato JSON o CSV para analizarlos en pantalla</p>
+                </div>
+
+                <div style="display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; margin-bottom: 1.1rem;">
+                    <label for="fileInput" class="btn btn-soft" style="cursor:pointer;">
+                        📂 Seleccionar archivo (.json / .csv)
+                    </label>
+                    <input type="file" id="fileInput" accept=".json,.csv" style="display:none;">
+                    <button type="button" class="btn btn-outline" id="btnExportJson">⬇ Exportar JSON</button>
+                    <button type="button" class="btn btn-outline" id="btnExportCsv">⬇ Exportar CSV</button>
+                </div>
+
+                <p style="font-size: 0.8rem; color: var(--text-muted);">
+                    Las muestras cargadas o capturadas se guardan temporalmente en este navegador (<strong id="sampleCount">0</strong> registros almacenados).
+                </p>
+            </article>
+        </section>
+
+        <!-- Panel Central: Gráfica Espectral -->
+        <section class="card">
+            <div class="card-header" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem;">
+                <div>
+                    <h2>Visualización espectral</h2>
+                    <p class="card-subtitle">Intensidad de señal vs. longitud de onda (415 nm – 860 nm)</p>
+                </div>
+
+                <div style="display:flex; flex-wrap:wrap; align-items:center; gap:1rem;">
+                    <select id="sampleSelector" style="padding:0.5rem 0.85rem; border-radius:10px; border:1px solid var(--border-subtle); font-size:0.88rem; background:#fff;">
+                        <option value="">Sin mediciones cargadas</option>
+                    </select>
+                    <label style="font-size:0.85rem; color:var(--text-muted); display:flex; align-items:center; gap:0.4rem; cursor:pointer;">
+                        <input type="checkbox" id="compareCheck"> Comparar con anterior
+                    </label>
+                    <button type="button" class="btn btn-outline" id="btnClearAll" style="padding:0.45rem 0.8rem; font-size:0.8rem;">Limpiar todo</button>
+                </div>
+            </div>
+
+            <div style="position: relative; height: 340px; width: 100%;">
+                <canvas id="spectralChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Panel Inferior: Tabla de Canales Espectrales -->
+        <section class="card">
+            <div class="card-header">
+                <h2>Tabla de canales espectrales</h2>
+                <p class="card-subtitle">Desglose numérico por sensor y banda de longitud de onda de la muestra seleccionada</p>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.88rem;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--border-subtle); color: var(--text-muted);">
+                            <th style="padding:0.75rem;">Sensor</th>
+                            <th style="padding:0.75rem;">Canal</th>
+                            <th style="padding:0.75rem;">Longitud de onda (nm)</th>
+                            <th style="padding:0.75rem;">Señal cruda / Intensidad</th>
+                        </tr>
+                    </thead>
+                    <tbody id="channelsTableBody">
+                        <tr>
+                            <td colspan="4" style="padding:1.5rem; text-align:center; color:var(--text-muted);">
+                                Sube un archivo JSON/CSV, conecta el prototipo o genera una muestra simulada para ver los datos.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>Plataforma de Análisis Espectral de Suelos <strong>(SIAS)</strong> · Módulo de Visualización y Telemetría</p>
+    </footer>
+
+    <button onclick="volverArriba()" id="btnVolverArriba" title="Volver arriba">↑</button>
+    <script src="script.js"></script>
+    <script src="dashboard-app.js"></script>
+</body>
+</html>

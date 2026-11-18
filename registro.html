@@ -6,12 +6,12 @@
     <title>Crear usuario · Sistema Integral de Análisis de Suelos (SIAS)</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .auth-layout {
-            display: grid;
-            grid-template-columns: 1fr 1.35fr;
+        .auth-stack {
+            max-width: 720px;
+            margin: 1.5rem auto 2.5rem;
+            display: flex;
+            flex-direction: column;
             gap: 1.5rem;
-            align-items: start;
-            margin: 1.5rem 0 2.5rem;
         }
         .form-grid-2 {
             display: grid;
@@ -51,7 +51,7 @@
             box-shadow: 0 0 0 3px rgba(15, 81, 50, 0.12);
         }
         .saved-profile-card {
-            margin-top: 1.25rem;
+            margin-top: 1.15rem;
             padding: 1rem 1.15rem;
             border-radius: 12px;
             background: #e6f4ef;
@@ -67,8 +67,7 @@
             margin: 0.2rem 0;
             font-size: 0.85rem;
         }
-        @media (max-width: 820px) {
-            .auth-layout,
+        @media (max-width: 720px) {
             .form-grid-2,
             .form-grid-3 {
                 grid-template-columns: 1fr;
@@ -102,43 +101,14 @@
     </nav>
 
     <main class="main-container">
-        <div class="section-heading">
-            <span class="section-kicker">REPOSITORIO COMPARTIDO SIAS</span>
-            <h2>Registro de cuenta de operador</h2>
-            <p>Crea tu perfil para vincular tus lecturas espectrales con tu identificador y ubicación geográfica.</p>
-        </div>
+        <div class="auth-stack">
+            <div class="section-heading" style="margin-bottom: 0;">
+                <span class="section-kicker">REPOSITORIO COMPARTIDO SIAS</span>
+                <h2>Registro de cuenta de operador</h2>
+                <p>Crea tu perfil para vincular tus lecturas espectrales con tu identificador y ubicación geográfica.</p>
+            </div>
 
-        <div class="auth-layout">
-            <article class="card">
-                <div class="card-header">
-                    <span class="section-kicker">TRAZABILIDAD DE DATOS</span>
-                    <h2>¿Por qué crear una cuenta?</h2>
-                </div>
-                <ul class="status-list">
-                    <li class="status-item">
-                        <div>
-                            <strong>ID / Nombre de la cuenta</strong>
-                            <span>Asocia cada muestra capturada con el ESP32 o subida por CSV a un investigador o parcela específica.</span>
-                        </div>
-                    </li>
-                    <li class="status-item">
-                        <div>
-                            <strong>Ubicación base (País, Estado y Ciudad)</strong>
-                            <span>Contextualiza regionalmente las muestras de suelo y deja listo el perfil para futuras integraciones con APIs geográficas o climáticas.</span>
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="saved-profile-card" id="perfilActivoCard">
-                    <h4>● Cuenta activa en este navegador</h4>
-                    <p id="resumenCuenta"></p>
-                    <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                        <a href="dashboard.html" class="btn btn-soft" style="font-size: 0.82rem; padding: 0.45rem 0.85rem;">Ir a analizar muestras →</a>
-                        <button type="button" id="btnCerrarCuenta" class="btn btn-outline" style="font-size: 0.82rem; padding: 0.45rem 0.85rem;">Cerrar cuenta</button>
-                    </div>
-                </div>
-            </article>
-
+            <!-- 1. Primero: Formulario de Registro -->
             <article class="card">
                 <div class="card-header">
                     <span class="section-kicker">FORMULARIO DE REGISTRO</span>
@@ -184,6 +154,38 @@
                         Guardar y crear cuenta
                     </button>
                 </form>
+
+                <!-- Confirmación plasmada justo debajo del formulario -->
+                <div class="saved-profile-card" id="perfilActivoCard">
+                    <h4>● Cuenta activa en este navegador</h4>
+                    <p id="resumenCuenta"></p>
+                    <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <a href="dashboard.html" class="btn btn-soft" style="font-size: 0.82rem; padding: 0.45rem 0.85rem;">Ir a analizar muestras →</a>
+                        <button type="button" id="btnCerrarCuenta" class="btn btn-outline" style="font-size: 0.82rem; padding: 0.45rem 0.85rem;">Cerrar cuenta</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2. Abajo: Tarjeta informativa de trazabilidad -->
+            <article class="card">
+                <div class="card-header">
+                    <span class="section-kicker">TRAZABILIDAD DE DATOS</span>
+                    <h2>¿Por qué crear una cuenta?</h2>
+                </div>
+                <ul class="status-list">
+                    <li class="status-item">
+                        <div>
+                            <strong>ID / Nombre de la cuenta</strong>
+                            <span>Asocia cada muestra capturada con el ESP32 o subida por CSV a un investigador o parcela específica.</span>
+                        </div>
+                    </li>
+                    <li class="status-item">
+                        <div>
+                            <strong>Ubicación base (País, Estado y Ciudad)</strong>
+                            <span>Contextualiza regionalmente las muestras de suelo y deja listo el perfil para futuras integraciones con APIs geográficas o climáticas.</span>
+                        </div>
+                    </li>
+                </ul>
             </article>
         </div>
     </main>

@@ -96,7 +96,6 @@
 
             <div class="nav-right">
                 <a href="dashboard.html" class="btn btn-soft">Análisis de muestras</a>
-                <a href="registro.html" class="btn btn-outline" id="navUserBadge">Crear usuario</a>
             </div>
 
             <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú de navegación">
@@ -154,7 +153,7 @@
                 <article class="card kpi-card">
                     <span class="pill pill-green" style="width: fit-content;">Alternativa óptica</span>
                     <h3 class="card-topic-title">Espectroscopia y brecha de decisión</h3>
-                    <p class="kpi-foot">Como alternativa, la espectroscopia se ha consolidado como una técnica óptica no invasiva capaz de caracterizar el suelo rápidamente (Ducanchez et al., 2021). A pesar del uso de esta tecnología, persiste una limitación técnica: la ausencia de un sistema unificado que traduzca los datos espectrales en decisiones agronómicas en tiempo real.</p>
+                    <p class="kpi-foot">Como alternativa, la espectroscopia se ha consolidado como una técnica óptica no invasiva capaz de caracterizar el suelo rápidamente (Ducanchez et al., 2021). A pesar de uso de esta tecnología, persiste una limitación técnica: la ausencia de un sistema unificado que traduzca los datos espectrales en decisiones agronómicas en tiempo real.</p>
                 </article>
             </div>
         </section>
@@ -340,15 +339,5 @@
 
     <button onclick="volverArriba()" id="btnVolverArriba" title="Volver arriba">↑</button>
     <script src="script.js"></script>
-    <script>
-        (function () {
-            const raw = localStorage.getItem('sias_cuenta_usuario');
-            if (raw) {
-                const u = JSON.parse(raw);
-                const badge = document.getElementById('navUserBadge');
-                if (badge && u.id_nombre) badge.textContent = '● ' + u.id_nombre;
-            }
-        })();
-    </script>
 </body>
 </html>

@@ -3,30 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú de Navegación Responsivo</title>
+    <title>Análisis Espectral de Suelos (SIAS) · Plataforma IoT</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Barra de Navegación Responsiva -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-left">
-                <a href="index.html" class="nav-logo">MiProyecto</a>
-                <ul class="nav-links">
-                    <li><a href="productos.html">Productos</a></li>
-                    <li><a href="sectores.html">Sectores</a></li>
-                    <li><a href="recursos.html">Recursos</a></li>
-                    <li><a href="clientes.html">Clientes</a></li>
-                    <li><a href="partners.html">Partners</a></li>
-                    <li><a href="desarrolladores.html">Desarrolladores</a></li>
+                <a href="index.html" class="brand">
+                    <div class="brand-icon" aria-hidden="true">◈</div>
+                    <div class="brand-text">
+                        <span class="brand-title">Análisis Espectral <span class="brand-tag">(SIAS)</span></span>
+                        <span class="brand-subtitle">MONITOREO NO DESTRUCTIVO DE SUELOS</span>
+                    </div>
+                </a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="active-link">Inicio</a></li>
+                    <li><a href="#arquitectura">Arquitectura</a></li>
+                    <li><a href="#sensores">Sensores</a></li>
+                    <li><a href="desarrolladores.html">Documentación</a></li>
                 </ul>
             </div>
+
             <div class="nav-right">
-                <a href="#" class="nav-country">🇲🇽</a>
-                <a href="#" class="btn btn-secondary">Ver cuentas</a>
-                <a href="#" class="btn btn-primary">Contactar especialista</a>
+                <a href="dashboard.html" class="btn btn-soft">Plataforma web</a>
+                <a href="app.html" class="btn btn-outline">Vista móvil ↗</a>
             </div>
-            <button class="hamburger">
+
+            <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú de navegación">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -34,12 +40,151 @@
         </div>
     </nav>
 
-    <main class="content">
-        <h1>Contenido Principal de la Página</h1>
-        <p>Este es el espacio donde iría el resto de tu página web.</p>
+    <!-- Contenido Principal -->
+    <main class="main-container">
+
+        <!-- Banner Principal (Hero) -->
+        <section class="hero-banner">
+            <div class="hero-content">
+                <span class="badge badge-mint">● PROTOTIPO WEB · VERSIÓN 0.2 · DENOMINACIÓN (SIAS)</span>
+                <h1>Del espectro a la información.</h1>
+                <p>Laboratorio digital y ecosistema IoT para visualizar mediciones ópticas de suelo, comparar firmas espectrales y consultar su ubicación de muestreo en campo.</p>
+                <div class="hero-actions">
+                    <a href="dashboard.html" class="btn btn-light">Abrir Dashboard Espectral →</a>
+                    <a href="app.html" class="btn btn-hero-ghost">Modo Captura Móvil (GPS)</a>
+                </div>
+            </div>
+
+            <div class="hero-stats">
+                <span class="hero-number">02</span>
+                <span class="hero-stat-title">Sensores base del prototipo</span>
+                <span class="hero-stat-detail">AS7341 (Visible) + AS7263 (NIR)</span>
+                <span class="hero-stat-sub">Espectrómetro Hamamatsu en integración</span>
+            </div>
+        </section>
+
+        <!-- Aviso de Estado del Proyecto -->
+        <div class="alert-banner">
+            <strong>Entorno en desarrollo (SIAS).</strong> Esta interfaz presenta la arquitectura del sistema de monitoreo espectral. Actualmente opera en modo demostrativo mientras se completa la integración de telemetría en tiempo real con la unidad ESP32 y persistencia en la nube.
+        </div>
+
+        <!-- Tarjetas de Resumen Técnico (KPIs) -->
+        <section class="kpi-grid">
+            <article class="card kpi-card">
+                <span class="kpi-label">Bandas espectrales base</span>
+                <strong class="kpi-value">14</strong>
+                <span class="kpi-foot">8 canales visibles + 6 infrarrojo cercano</span>
+            </article>
+
+            <article class="card kpi-card">
+                <span class="kpi-label">Sensores ópticos</span>
+                <strong class="kpi-value">2 + 1</strong>
+                <span class="kpi-foot">AS7341 / AS7263 · Hamamatsu previsto</span>
+            </article>
+
+            <article class="card kpi-card">
+                <span class="kpi-label">Unidad de adquisición</span>
+                <strong class="kpi-value">ESP32</strong>
+                <span class="kpi-foot">Control óptico, lectura y transmisión</span>
+            </article>
+
+            <article class="card kpi-card">
+                <span class="kpi-label">Portabilidad de datos</span>
+                <strong class="kpi-value">JSON / CSV</strong>
+                <span class="kpi-foot">Compatible con análisis en Python / Streamlit</span>
+            </article>
+        </section>
+
+        <!-- Sección de Arquitectura y Estado de Componentes -->
+        <section class="two-col-grid" id="arquitectura">
+            <article class="card">
+                <div class="card-header">
+                    <div>
+                        <h2>Estado de componentes</h2>
+                        <p class="card-subtitle">Evolución modular del ecosistema IoT</p>
+                    </div>
+                </div>
+
+                <ul class="status-list">
+                    <li class="status-item">
+                        <div>
+                            <strong>Interfaz visual y dashboard</strong>
+                            <span>Navegador web y vista móvil responsiva</span>
+                        </div>
+                        <span class="pill pill-green">Activo</span>
+                    </li>
+                    <li class="status-item">
+                        <div>
+                            <strong>Almacenamiento local y portabilidad</strong>
+                            <span>Persistencia en navegador (hasta 300 muestras) y exportación</span>
+                        </div>
+                        <span class="pill pill-green">Disponible</span>
+                    </li>
+                    <li class="status-item">
+                        <div>
+                            <strong>Nodo ESP32 / Comunicación BLE-WiFi</strong>
+                            <span>Enlace inalámbrico con dispositivo móvil en campo</span>
+                        </div>
+                        <span class="pill pill-amber">En integración</span>
+                    </li>
+                    <li class="status-item">
+                        <div>
+                            <strong>Base de datos nube y modelo analítico</strong>
+                            <span>Sincronización remota y procesamiento en Streamlit</span>
+                        </div>
+                        <span class="pill pill-amber">Pendiente</span>
+                    </li>
+                </ul>
+            </article>
+
+            <article class="card" id="sensores">
+                <div class="card-header">
+                    <div>
+                        <h2>Sensores y arquitectura</h2>
+                        <p class="card-subtitle">Sistema diseñado para escalar sin reemplazar la adquisición</p>
+                    </div>
+                </div>
+
+                <ul class="status-list">
+                    <li class="status-item">
+                        <div>
+                            <strong>AS7341 · AS7263</strong>
+                            <span>Sensores multiespectrales de 14 canales en el prototipo</span>
+                        </div>
+                        <span class="pill pill-green">Actual</span>
+                    </li>
+                    <li class="status-item">
+                        <div>
+                            <strong>Hamamatsu C12880MA</strong>
+                            <span>Espectrómetro MEMS de alta resolución para fase avanzada</span>
+                        </div>
+                        <span class="pill pill-amber">Siguiente fase</span>
+                    </li>
+                    <li class="status-item">
+                        <div>
+                            <strong>Georreferenciación GPS móvil</strong>
+                            <span>Captura de coordenadas y marca de tiempo por muestra</span>
+                        </div>
+                        <span class="pill pill-green">Listo en web</span>
+                    </li>
+                    <li class="status-item">
+                        <div>
+                            <strong>Pipeline de ciencia de datos</strong>
+                            <span>Exportación estructurada para quimiometría en Python</span>
+                        </div>
+                        <span class="pill pill-amber">Planificado</span>
+                    </li>
+                </ul>
+            </article>
+        </section>
+
     </main>
+
+    <footer class="site-footer">
+        <p>Plataforma de Análisis Espectral de Suelos <strong>(SIAS)</strong> · Prototipo de Investigación IoT</p>
+    </footer>
+
     <button onclick="volverArriba()" id="btnVolverArriba" title="Volver arriba">↑</button>
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
-

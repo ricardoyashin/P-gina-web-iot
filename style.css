@@ -211,6 +211,33 @@ body {
     gap: 1.5rem;
 }
 
+/* --- Encabezados de Sección --- */
+.section-heading {
+    margin-bottom: 1.25rem;
+}
+
+.section-kicker {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--teal-accent);
+    margin-bottom: 0.3rem;
+}
+
+.section-heading h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 0.35rem;
+}
+
+.section-heading p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    max-width: 720px;
+}
+
 /* --- Hero Banner --- */
 .hero-banner {
     background: linear-gradient(135deg, var(--forest-dark) 0%, var(--forest-mid) 100%);
@@ -343,6 +370,13 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.45rem;
+}
+
+.card-topic-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0.35rem 0;
 }
 
 .kpi-label {

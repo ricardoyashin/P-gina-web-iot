@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análisis Espectral de Suelos (SIAS) · Seguridad Alimentaria e IoT</title>
+    <title>Sistema Integral de Análisis de Suelos (SIAS)</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Barra de Navegación Responsiva -->
+    <!-- Barra de Navegación -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-left">
                 <a href="index.html" class="brand">
                     <div class="brand-icon" aria-hidden="true">◈</div>
                     <div class="brand-text">
-                        <span class="brand-title">Análisis Espectral <span class="brand-tag">(SIAS)</span></span>
-                        <span class="brand-subtitle">MONITOREO NO DESTRUCTIVO DE SUELOS</span>
+                        <span class="brand-title">Sistema Integral de Análisis de Suelos <span class="brand-tag">(SIAS)</span></span>
+                        <span class="brand-subtitle">ESPECTROSCOPÍA ÓPTICA E IOT</span>
                     </div>
                 </a>
                 <ul class="nav-links" id="navLinks">
                     <li><a href="index.html" class="active-link">Inicio</a></li>
                     <li><a href="#problematica">Problemática</a></li>
-                    <li><a href="#solucion">Solución Espectral</a></li>
-                    <li><a href="#arquitectura">Arquitectura</a></li>
+                    <li><a href="#limitaciones">Limitaciones</a></li>
+                    <li><a href="#contexto">Contexto del proyecto</a></li>
                 </ul>
             </div>
 
@@ -43,126 +43,117 @@
     <!-- Contenido Principal -->
     <main class="main-container">
 
-        <!-- Banner Principal (Hero enfocado al problema global y solución) -->
+        <!-- Banner Principal -->
         <section class="hero-banner">
             <div class="hero-content">
-                <span class="badge badge-mint">● SEGURIDAD ALIMENTARIA Y MONITOREO AGRÍCOLA · (SIAS)</span>
-                <h1>Protegiendo el suelo que sostiene nuestros cultivos.</h1>
-                <p>El deterioro agrícola, el riesgo de desabasto alimentario y la presencia de contaminantes en el suelo exigen diagnósticos rápidos. Transformamos la respuesta óptica del suelo en información accionable, sin destruir la muestra ni usar reactivos químicos.</p>
+                <span class="badge badge-mint">● SISTEMA INTEGRAL DE ANÁLISIS DE SUELOS (SIAS)</span>
+                <h1>Monitoreo no destructivo del suelo mediante espectroscopía óptica e IoT.</h1>
+                <p>El análisis oportuno de los elementos químicos y sustancias que contaminan el suelo es la base de la agricultura de precisión. Integramos espectroscopía óptica con sistemas embebidos del internet de las cosas (IoT) y plataforma en la nube.</p>
                 <div class="hero-actions">
-                    <a href="dashboard.html" class="btn btn-light">Subir datos o conectar espectrómetro →</a>
-                    <a href="#problematica" class="btn btn-hero-ghost">Explorar la problemática</a>
+                    <a href="dashboard.html" class="btn btn-light">Ir a la Plataforma Web →</a>
+                    <a href="#problematica" class="btn btn-hero-ghost">Leer problemática</a>
                 </div>
             </div>
 
             <div class="hero-stats">
-                <span class="hero-number">14+</span>
-                <span class="hero-stat-title">Bandas ópticas de análisis</span>
-                <span class="hero-stat-detail">AS7341 (Visible) + AS7263 (NIR)</span>
-                <span class="hero-stat-sub">Escalable a espectrómetro Hamamatsu</span>
+                <span class="hero-number">03</span>
+                <span class="hero-stat-title">Limitaciones técnicas atendidas</span>
+                <span class="hero-stat-detail">Procesamiento · Transmisión IoT · Costo</span>
+                <span class="hero-stat-sub">Espectroscopía óptica no invasiva</span>
             </div>
         </section>
 
-        <!-- Bloque 1: La Problemática -->
+        <!-- Bloque 1: Problemática -->
         <section id="problematica">
             <div class="section-heading">
-                <span class="section-kicker">EL DESAFÍO AGRÍCOLA Y AMBIENTAL</span>
-                <h2>¿Por qué monitorear la salud del suelo hoy?</h2>
-                <p>La calidad de los alimentos comienza en el suelo. Ignorar su estado nutricional o toxicológico compromete tanto la cosecha como la salud pública.</p>
+                <span class="section-kicker">PROBLEMÁTICA</span>
+                <h2>Métodos convencionales frente a la espectroscopía óptica</h2>
+                <p>El análisis oportuno de los elementos químicos y sustancias que contaminan el suelo es la base de la agricultura de precisión.</p>
             </div>
 
             <div class="kpi-grid">
                 <article class="card kpi-card">
-                    <span class="pill pill-amber" style="width: fit-content;">Seguridad alimentaria</span>
-                    <h3 class="card-topic-title">Riesgo de desabasto y baja productividad</h3>
-                    <p class="kpi-foot">La degradación de nutrientes esenciales reduce el rendimiento por hectárea, encarece la producción y amenaza el suministro constante de alimentos.</p>
+                    <span class="pill pill-amber" style="width: fit-content;">Métodos convencionales</span>
+                    <h3 class="card-topic-title">Procesos invasivos</h3>
+                    <p class="kpi-foot">Sin embargo, los métodos de análisis convencionales son procesos invasivos (Carter &amp; Gregorich, 2008). Estas técnicas alteran las características de las muestras de forma permanente e impiden que el suelo vuelva a su estado original tras el estudio.</p>
                 </article>
 
                 <article class="card kpi-card">
-                    <span class="pill pill-amber" style="width: fit-content;">Inocuidad agrícola</span>
-                    <h3 class="card-topic-title">Contaminantes y residuos en cultivos</h3>
-                    <p class="kpi-foot">El exceso de agroquímicos, metales pesados y compuestos tóxicos se acumula en la tierra, pasa a los cultivos y contamina los mantos freáticos.</p>
+                    <span class="pill pill-amber" style="width: fit-content;">Gestión sostenible</span>
+                    <h3 class="card-topic-title">Necesidad de métodos no destructivos</h3>
+                    <p class="kpi-foot">La alteración permanente de las muestras tras el estudio hace necesario adoptar métodos no destructivos para lograr una gestión agrícola sostenible (Gebbers &amp; Adamchuk, 2010).</p>
                 </article>
 
                 <article class="card kpi-card">
-                    <span class="pill pill-amber" style="width: fit-content;">Brecha tecnológica</span>
-                    <h3 class="card-topic-title">Diagnósticos lentos y destructivos</h3>
-                    <p class="kpi-foot">Los análisis químicos tradicionales requieren trasladar muestras a laboratorio, cuestan dinero y tardan días o semanas, impidiendo actuar a tiempo en parcela.</p>
+                    <span class="pill pill-green" style="width: fit-content;">Alternativa óptica</span>
+                    <h3 class="card-topic-title">Espectroscopia y brecha de decisión</h3>
+                    <p class="kpi-foot">Como alternativa, la espectroscopia se ha consolidado como una técnica óptica no invasiva capaz de caracterizar el suelo rápidamente (Ducanchez et al., 2021). A pesar del uso de esta tecnología, persiste una limitación técnica: la ausencia de un sistema unificado que traduzca los datos espectrales en decisiones agronómicas en tiempo real.</p>
                 </article>
             </div>
         </section>
 
-        <!-- Bloque 2: Nuestra Solución -->
-        <section class="two-col-grid" id="solucion">
-            <article class="card">
-                <div class="card-header">
-                    <span class="section-kicker">NUESTRO ENFOQUE</span>
-                    <h2>Espectroscopía óptica e IoT al pie del cultivo</h2>
-                    <p class="card-subtitle">Diagnóstico inmediato, portátil y libre de reactivos</p>
-                </div>
-                <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1rem;">
-                    Cada componente del suelo —materia orgánica, humedad, macronutrientes o presencia de agentes contaminantes— absorbe y refleja la luz de manera distinta. Nuestro prototipo <strong>(SIAS)</strong> captura esa firma espectral en segundos.
-                </p>
-                <ul class="status-list">
-                    <li class="status-item">
-                        <div>
-                            <strong>Análisis 100% no destructivo</strong>
-                            <span>No altera la muestra ni genera residuos químicos contaminantes</span>
-                        </div>
-                        <span class="pill pill-green">Sostenible</span>
-                    </li>
-                    <li class="status-item">
-                        <div>
-                            <strong>Trazabilidad georreferenciada</strong>
-                            <span>Cada espectro se vincula con coordenadas GPS y fecha de muestreo</span>
-                        </div>
-                        <span class="pill pill-green">En campo</span>
-                    </li>
-                </ul>
-            </article>
+        <!-- Bloque 2: Las 3 Limitaciones Principales -->
+        <section id="limitaciones">
+            <div class="section-heading">
+                <span class="section-kicker">ECOSISTEMA TECNOLÓGICO</span>
+                <h2>Tres limitaciones principales actuales</h2>
+                <p>Esta desconexión técnica y la falta de accesibilidad económica crean una brecha entre la recolección del dato espectral en campo y la toma de decisiones, lo que mantiene una gestión agrícola reactiva en lugar de una proactiva y basada en datos.</p>
+            </div>
 
-            <article class="card" id="arquitectura">
-                <div class="card-header">
-                    <span class="section-kicker">ECOSISTEMA DEL PROTOTIPO</span>
-                    <h2>Hardware y plataforma conectados</h2>
-                    <p class="card-subtitle">Diseñado para evolucionar desde sensores multiespectrales hasta espectroscopía de alta resolución</p>
-                </div>
+            <div class="kpi-grid">
+                <article class="card kpi-card">
+                    <span class="pill pill-green" style="width: fit-content;">Limitación 1</span>
+                    <h3 class="card-topic-title">Operación aislada en campo</h3>
+                    <p class="kpi-foot">Los equipos de espectroscopia en campo operan de manera aislada y capturan datos que no se pueden procesar de inmediato.</p>
+                </article>
 
-                <ul class="status-list">
-                    <li class="status-item">
-                        <div>
-                            <strong>Sensores ópticos actuales (AS7341 · AS7263)</strong>
-                            <span>Lectura en espectro visible (415–680 nm) e infrarrojo cercano (610–860 nm)</span>
-                        </div>
-                        <span class="pill pill-green">Integrado</span>
-                    </li>
-                    <li class="status-item">
-                        <div>
-                            <strong>Espectrómetro Hamamatsu C12880MA</strong>
-                            <span>Integración de alta resolución espectral para identificación fina</span>
-                        </div>
-                        <span class="pill pill-amber">En integración</span>
-                    </li>
-                    <li class="status-item">
-                        <div>
-                            <strong>Adquisición ESP32 y Plataforma Web</strong>
-                            <span>Carga de archivos JSON/CSV y enlace directo con el prototipo</span>
-                        </div>
-                        <span class="pill pill-green">Disponible</span>
-                    </li>
-                </ul>
-            </article>
+                <article class="card kpi-card">
+                    <span class="pill pill-green" style="width: fit-content;">Limitación 2</span>
+                    <h3 class="card-topic-title">Sin transmisión automatizada a la nube</h3>
+                    <p class="kpi-foot">No existe una infraestructura tecnológica que automatice la transmisión de los datos desde un dispositivo portátil (IoT) hacia una plataforma en la nube para su análisis y visualización.</p>
+                </article>
+
+                <article class="card kpi-card">
+                    <span class="pill pill-green" style="width: fit-content;">Limitación 3</span>
+                    <h3 class="card-topic-title">Costos elevados</h3>
+                    <p class="kpi-foot">Los equipos comerciales de espectroscopia de alta precisión tienen costos elevados, lo que limita su accesibilidad y restringe su despliegue a gran escala en el sector agrícola.</p>
+                </article>
+            </div>
         </section>
 
-        <!-- Aviso de Denominación -->
-        <div class="alert-banner">
-            <strong>Nota del proyecto (SIAS):</strong> Prototipo web en desarrollo (v0.2) bajo la denominación provisional <em>Sistema de Análisis Espectral de Suelos (SIAS)</em>. Puedes cargar tus propios archivos de mediciones o simular lecturas directamente en la pestaña <strong>Plataforma web</strong>.
-        </div>
+        <!-- Bloque 3: Contexto y Justificación del Proyecto -->
+        <section class="two-col-grid" id="contexto">
+            <article class="card">
+                <div class="card-header">
+                    <span class="section-kicker">CONTEXTO</span>
+                    <h2>Retos de productividad y gestión sostenible</h2>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1rem;">
+                    Actualmente, las tecnologías de la información desempeñan un papel fundamental en la actividad humana y ofrecen soluciones a problemas comunes como la sostenibilidad en diferentes áreas. Al mismo tiempo, el crecimiento de la población ha provocado que la agricultura, tal como se conoce en la actualidad, no cumpla con las necesidades alimentarias, por lo que existen diversas propuestas de sistemas inteligentes orientadas a atender los retos de productividad y gestión sostenible en el sector agrícola.
+                </p>
+                <p style="font-size: 0.92rem; color: var(--text-muted);">
+                    Dentro de este ámbito, el monitoreo no destructivo del suelo mediante espectroscopía óptica integrada con sistemas embebidos del internet de las cosas (IoT) y plataforma en la nube constituye una línea de desarrollo relevante frente a métodos actuales de análisis químico.
+                </p>
+            </article>
+
+            <article class="card">
+                <div class="card-header">
+                    <span class="section-kicker">ENFOQUE DEL SISTEMA (SIAS)</span>
+                    <h2>Brecha entre equipos comerciales y prototipos</h2>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1rem;">
+                    En la literatura especializada se observa una brecha entre los equipos comerciales de alta precisión, cuyo costo elevado restringe su despliegue a gran escala en el sector agrícola, y los prototipos portátiles experimentales, los cuales suelen operar de manera aislada en campo sin procesamiento inmediato ni transmisión automatizada hacia la nube para su análisis y visualización oportuna.
+                </p>
+                <div class="hero-actions" style="margin-top: 1.25rem;">
+                    <a href="dashboard.html" class="btn btn-soft">Abrir Plataforma Web →</a>
+                </div>
+            </article>
+        </section>
 
     </main>
 
     <footer class="site-footer">
-        <p>Plataforma de Análisis Espectral de Suelos <strong>(SIAS)</strong> · Seguridad Alimentaria e IoT</p>
+        <p>Sistema Integral de Análisis de Suelos <strong>(SIAS)</strong> · Monitoreo no destructivo mediante espectroscopía óptica e IoT</p>
     </footer>
 
     <button onclick="volverArriba()" id="btnVolverArriba" title="Volver arriba">↑</button>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear usuario · Sistema Integral de Análisis de Suelos (SIAS)</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.35fr;
+            gap: 1.5rem;
+            align-items: start;
+            margin: 1.5rem 0 2.5rem;
+        }
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.85rem;
+        }
+        .form-grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.85rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            margin-bottom: 0.85rem;
+        }
+        .form-group label {
+            font-size: 0.83rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.65rem 0.85rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            background: #ffffff;
+            color: var(--text-main);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-group input:focus {
+            border-color: #0f5132;
+            box-shadow: 0 0 0 3px rgba(15, 81, 50, 0.12);
+        }
+        .saved-profile-card {
+            margin-top: 1.25rem;
+            padding: 1rem 1.15rem;
+            border-radius: 12px;
+            background: #e6f4ef;
+            border: 1px solid #b7e4d3;
+            color: #0f5132;
+            display: none;
+        }
+        .saved-profile-card h4 {
+            margin: 0 0 0.45rem;
+            font-size: 0.95rem;
+        }
+        .saved-profile-card p {
+            margin: 0.2rem 0;
+            font-size: 0.85rem;
+        }
+        @media (max-width: 820px) {
+            .auth-layout,
+            .form-grid-2,
+            .form-grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="brand">
+                    <div class="brand-icon" aria-hidden="true">◈</div>
+                    <div class="brand-text">
+                        <span class="brand-title">Sistema Integral de Análisis de Suelos <span class="brand-tag">(SIAS)</span></span>
+                        <span class="brand-subtitle">ESPECTROSCOPÍA ÓPTICA E IOT</span>
+                    </div>
+                </a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="dashboard.html">Análisis de muestras</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-right">
+                <a href="dashboard.html" class="btn btn-soft">Análisis de muestras</a>
+                <a href="registro.html" class="btn btn-outline active-link" id="navUserBadge">Crear usuario</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="section-heading">
+            <span class="section-kicker">REPOSITORIO COMPARTIDO SIAS</span>
+            <h2>Registro de cuenta de operador</h2>
+            <p>Crea tu perfil para vincular tus lecturas espectrales con tu identificador y ubicación geográfica.</p>
+        </div>
+
+        <div class="auth-layout">
+            <article class="card">
+                <div class="card-header">
+                    <span class="section-kicker">TRAZABILIDAD DE DATOS</span>
+                    <h2>¿Por qué crear una cuenta?</h2>
+                </div>
+                <ul class="status-list">
+                    <li class="status-item">
+                        <div>
+                            <strong>ID / Nombre de la cuenta</strong>
+                            <span>Asocia cada muestra capturada con el ESP32 o subida por CSV a un investigador o parcela específica.</span>
+                        </div>
+                    </li>
+                    <li class="status-item">
+                        <div>
+                            <strong>Ubicación base (País, Estado y Ciudad)</strong>
+                            <span>Contextualiza regionalmente las muestras de suelo y deja listo el perfil para futuras integraciones con APIs geográficas o climáticas.</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="saved-profile-card" id="perfilActivoCard">
+                    <h4>● Cuenta activa en este navegador</h4>
+                    <p id="resumenCuenta"></p>
+                    <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <a href="dashboard.html" class="btn btn-soft" style="font-size: 0.82rem; padding: 0.45rem 0.85rem;">Ir a analizar muestras →</a>
+                        <button type="button" id="btnCerrarCuenta" class="btn btn-outline" style="font-size: 0.82rem; padding: 0.45rem 0.85rem;">Cerrar cuenta</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-header">
+                    <span class="section-kicker">FORMULARIO DE REGISTRO</span>
+                    <h2>Datos del usuario</h2>
+                </div>
+
+                <form id="formRegistroCompleto">
+                    <div class="form-group">
+                        <label for="regAccountId">ID / Nombre de la cuenta</label>
+                        <input type="text" id="regAccountId" name="regAccountId" placeholder="Ej. SIAS-RYGM01 o Ricardo González" required>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="regEmail">Correo electrónico</label>
+                            <input type="email" id="regEmail" name="regEmail" placeholder="usuario@institucion.edu.mx" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="regPassword">Contraseña</label>
+                            <input type="password" id="regPassword" name="regPassword" placeholder="Mínimo 8 caracteres" minlength="8" required>
+                        </div>
+                    </div>
+
+                    <div class="form-grid-3">
+                        <div class="form-group">
+                            <label for="regCountry">País</label>
+                            <input type="text" id="regCountry" name="regCountry" placeholder="Ej. México" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="regState">Estado</label>
+                            <input type="text" id="regState" name="regState" placeholder="Ej. Veracruz" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="regCity">Ciudad</label>
+                            <input type="text" id="regCity" name="regCity" placeholder="Ej. Xalapa" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-soft" style="width: 100%; justify-content: center; margin-top: 0.35rem;">
+                        Guardar y crear cuenta
+                    </button>
+                </form>
+            </article>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>Sistema Integral de Análisis de Suelos <strong>(SIAS)</strong> · Monitoreo no destructivo mediante espectroscopía óptica e IoT</p>
+    </footer>
+
+    <script>
+        const STORAGE_KEY = 'sias_cuenta_usuario';
+
+        function mostrarCuentaGuardada() {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            const card = document.getElementById('perfilActivoCard');
+            const resumen = document.getElementById('resumenCuenta');
+            const badge = document.getElementById('navUserBadge');
+
+            if (!raw) {
+                card.style.display = 'none';
+                badge.textContent = 'Crear usuario';
+                return;
+            }
+
+            const data = JSON.parse(raw);
+            card.style.display = 'block';
+            resumen.innerHTML =
+                '<strong>ID / Cuenta:</strong> ' + data.id_nombre + '<br>' +
+                '<strong>Correo:</strong> ' + data.correo + '<br>' +
+                '<strong>Ubicación:</strong> ' + data.ciudad + ', ' + data.estado + ', ' + data.pais;
+            badge.textContent = '● ' + data.id_nombre;
+        }
+
+        document.getElementById('formRegistroCompleto').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const usuario = {
+                id_nombre: document.getElementById('regAccountId').value.trim(),
+                correo: document.getElementById('regEmail').value.trim(),
+                pais: document.getElementById('regCountry').value.trim(),
+                estado: document.getElementById('regState').value.trim(),
+                ciudad: document.getElementById('regCity').value.trim(),
+                creado_en: new Date().toISOString()
+            };
+
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(usuario));
+            mostrarCuentaGuardada();
+        });
+
+        document.getElementById('btnCerrarCuenta').addEventListener('click', function () {
+            localStorage.removeItem(STORAGE_KEY);
+            mostrarCuentaGuardada();
+        });
+
+        mostrarCuentaGuardada();
+    </script>
+</body>
+</html>

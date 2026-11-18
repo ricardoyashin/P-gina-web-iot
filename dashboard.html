@@ -27,36 +27,46 @@
             font-size: 0.84rem;
             font-weight: 600;
         }
-        .controls-bar {
+        .toolbar-grid {
             display: grid;
-            grid-template-columns: 1.3fr 1fr auto auto;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
             gap: 0.75rem;
-            align-items: end;
-            margin-bottom: 1.5rem;
+            align-items: center;
+            margin-bottom: 1rem;
         }
-        .control-field {
+        .selector-bar {
             display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 1rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin-bottom: 1.25rem;
         }
-        .control-field label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-        .control-field input[type="text"],
-        .control-field input[type="file"] {
-            padding: 0.55rem 0.75rem;
+        .selector-bar select {
+            padding: 0.5rem 0.75rem;
             border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            font-size: 0.85rem;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            min-width: 240px;
             background: #ffffff;
-            color: var(--text-main);
+        }
+        .hw-log-box {
+            margin-top: 0.75rem;
+            padding: 0.65rem 0.9rem;
+            border-radius: 8px;
+            background: #f1f5f9;
+            font-family: monospace;
+            font-size: 0.82rem;
+            color: #334155;
         }
         .chart-wrapper {
             position: relative;
             width: 100%;
-            height: 330px;
+            height: 340px;
             margin-top: 0.75rem;
         }
         .table-responsive {
@@ -67,28 +77,14 @@
         .sias-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.84rem;
-        }
-        .sias-table th,
-        .sias-table td {
-            padding: 0.65rem 0.75rem;
-            border-bottom: 1px solid #e2e8f0;
-            text-align: left;
-            white-space: nowrap;
+            font-size: 0.86rem;
         }
         .sias-table th {
+            padding: 0.7rem 0.75rem;
             background: #f8fafc;
-            color: var(--text-main);
+            border-bottom: 2px solid #e2e8f0;
+            text-align: left;
             font-weight: 600;
-        }
-        .sias-table tr:hover {
-            background: #f1f5f3;
-            cursor: pointer;
-        }
-        @media (max-width: 900px) {
-            .controls-bar {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -127,106 +123,120 @@
         <div class="dash-header-bar">
             <div class="section-heading" style="margin-bottom: 0;">
                 <span class="section-kicker">PANEL DE VISUALIZACIÓN ESPECTRAL</span>
-                <h2>Análisis de muestras de suelo (AS7341 + AS7263)</h2>
-                <p>Consulta libre de firmas multiespectrales (415 – 860 nm), detección de picos e historial de capturas.</p>
+                <h2>Análisis de muestras (AS7341 + AS7263)</h2>
+                <p>Adquisición en vivo por USB/BLE desde ESP32, carga de archivos CSV/JSON y comparación de firmas ópticas (415 – 860 nm).</p>
             </div>
 
             <div class="operator-pill" id="operatorStatusPill">
-                ● Modo consulta (Invitado)
+                ● Modo consulta libre
             </div>
         </div>
 
-        <!-- KPIs de la muestra seleccionada -->
+        <!-- KPIs Resumen -->
         <section class="kpi-grid" style="margin-bottom: 1.5rem;">
             <article class="card kpi-card">
-                <span class="pill pill-green" style="width: fit-content;">Muestra activa</span>
-                <h3 class="card-topic-title" id="kpiMuestraId">Muestra Base · Suelo Franco</h3>
-                <p class="kpi-foot" id="kpiUbicacion">Ubicación: Xalapa, Veracruz, México</p>
+                <span class="pill pill-green" style="width: fit-content;">Muestras almacenadas</span>
+                <h3 class="card-topic-title"><span id="sampleCount">0</span> lecturas</h3>
+                <p class="kpi-foot">Historial persistente en almacenamiento local del navegador.</p>
             </article>
 
             <article class="card kpi-card">
-                <span class="pill pill-amber" style="width: fit-content;">Longitud de onda pico</span>
-                <h3 class="card-topic-title" id="kpiPicoNm">680 nm (Rojo / Clorofila)</h3>
-                <p class="kpi-foot">Banda de mayor reflectancia detectada en el arreglo óptico.</p>
+                <span class="pill pill-amber" style="width: fit-content;">Estado del hardware</span>
+                <div style="margin: 0.45rem 0;">
+                    <span class="pill pill-amber" id="hwConnectionPill">ESP32 Desconectada</span>
+                </div>
+                <p class="kpi-foot">Compatible con Web Serial (USB 115200 bps) y Web Bluetooth.</p>
             </article>
 
             <article class="card kpi-card">
-                <span class="pill pill-green" style="width: fit-content;">Intensidad máxima (Raw)</span>
-                <h3 class="card-topic-title" id="kpiIntensidadRaw">14,820 cuentas</h3>
-                <p class="kpi-foot">Lectura directa del conversor ADC (16 bits) sin saturación.</p>
+                <span class="pill pill-green" style="width: fit-content;">Arreglo óptico activo</span>
+                <h3 class="card-topic-title">14 Bandas Espectrales</h3>
+                <p class="kpi-foot">8 canales visibles (AS7341) + 6 canales NIR (AS7263).</p>
             </article>
         </section>
 
-        <!-- Barra de herramientas: Cargar CSV o simular lectura ESP32 -->
+        <!-- Panel de Conexión Hardware y Archivos -->
         <article class="card" style="margin-bottom: 1.5rem;">
             <div class="card-header">
-                <span class="section-kicker">ADQUISICIÓN DE DATOS</span>
-                <h2>Cargar CSV del ESP32 o generar lectura de prueba</h2>
+                <span class="section-kicker">ADQUISICIÓN Y TELEMETRÍA</span>
+                <h2>Conectar prototipo ESP32 o cargar mediciones</h2>
             </div>
 
-            <div class="controls-bar" style="margin-bottom: 0;">
-                <div class="control-field">
-                    <label for="inputEtiquetaMuestra">Etiqueta / Parcela de la muestra</label>
-                    <input type="text" id="inputEtiquetaMuestra" placeholder="Ej. Parcela Norte - Muestra 01">
-                </div>
-
-                <div class="control-field">
-                    <label for="inputCsvFile">Subir archivo CSV (14 bandas)</label>
-                    <input type="file" id="inputCsvFile" accept=".csv,text/csv">
-                </div>
-
-                <button type="button" id="btnSimularEsp32" class="btn btn-soft">
-                    + Simular captura ESP32
+            <div class="toolbar-grid">
+                <button type="button" id="btnConnectSerial" class="btn btn-soft" style="justify-content: center;">
+                    🔌 Conectar ESP32 (USB)
                 </button>
-
-                <button type="button" id="btnExportarCsv" class="btn btn-outline">
-                    Descargar CSV
+                <button type="button" id="btnConnectBle" class="btn btn-outline" style="justify-content: center;">
+                    📡 Conectar ESP32 (BLE)
                 </button>
+                <button type="button" id="btnSimulate" class="btn btn-outline" style="justify-content: center;">
+                    ✨ Simular muestra demo
+                </button>
+                <label class="btn btn-outline" style="justify-content: center; cursor: pointer; margin: 0;">
+                    📂 Subir JSON / CSV
+                    <input type="file" id="fileInput" accept=".json,.csv" style="display: none;">
+                </label>
+            </div>
+
+            <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
+                <button type="button" id="btnExportCsv" class="btn btn-outline" style="font-size: 0.82rem; padding: 0.45rem 0.85rem;">
+                    ⬇ Exportar CSV
+                </button>
+                <button type="button" id="btnExportJson" class="btn btn-outline" style="font-size: 0.82rem; padding: 0.45rem 0.85rem;">
+                    ⬇ Exportar JSON
+                </button>
+                <button type="button" id="btnClearAll" class="btn btn-outline" style="font-size: 0.82rem; padding: 0.45rem 0.85rem; color: #b91c1c; border-color: #fecaca;">
+                    🗑 Borrar historial
+                </button>
+            </div>
+
+            <div class="hw-log-box" id="hwLog">
+                Listo. Conecta tu ESP32 por USB/BLE, sube un archivo CSV/JSON o genera una muestra simulada.
             </div>
         </article>
 
         <!-- Gráfica Espectral -->
         <article class="card" style="margin-bottom: 1.5rem;">
             <div class="card-header">
-                <span class="section-kicker">CURVA MULTIESPECTRAL (14 BANDAS)</span>
-                <h2>Firma óptica Visible (AS7341) + NIR (AS7263)</h2>
+                <span class="section-kicker">FIRMA ESPECTRAL</span>
+                <h2>Curva de intensidad por longitud de onda</h2>
             </div>
+
+            <div class="selector-bar">
+                <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+                    <label for="sampleSelector" style="font-size: 0.85rem; font-weight: 600;">Muestra seleccionada:</label>
+                    <select id="sampleSelector"></select>
+                </div>
+
+                <label style="display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.85rem; cursor: pointer;">
+                    <input type="checkbox" id="compareCheck">
+                    Comparar con lectura anterior
+                </label>
+            </div>
+
             <div class="chart-wrapper">
-                <canvas id="espectroChart"></canvas>
+                <canvas id="spectralChart"></canvas>
             </div>
         </article>
 
-        <!-- Tabla de muestras registradas -->
+        <!-- Tabla Desglosada de los 14 Canales -->
         <article class="card" style="margin-bottom: 2.5rem;">
-            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
-                <div>
-                    <span class="section-kicker">HISTORIAL LOCAL</span>
-                    <h2>Tabla de muestras registradas (haz clic en una fila para graficar)</h2>
-                </div>
-                <button type="button" id="btnLimpiarHistorial" class="btn btn-outline" style="font-size: 0.8rem; padding: 0.4rem 0.75rem;">
-                    Restaurar ejemplos
-                </button>
+            <div class="card-header">
+                <span class="section-kicker">DESGLOSE POR CANAL ÓPTICO</span>
+                <h2>Lecturas individuales (AS7341 Visible + AS7263 NIR)</h2>
             </div>
 
             <div class="table-responsive">
                 <table class="sias-table">
                     <thead>
                         <tr>
-                            <th>Muestra</th>
-                            <th>Operador</th>
-                            <th>Ubicación</th>
-                            <th>Pico (nm)</th>
-                            <th>Máx. Raw</th>
-                            <th>415nm</th>
-                            <th>480nm</th>
-                            <th>555nm</th>
-                            <th>680nm</th>
-                            <th>730nm</th>
-                            <th>810nm</th>
-                            <th>860nm</th>
+                            <th>Sensor</th>
+                            <th>Canal</th>
+                            <th>Longitud de onda</th>
+                            <th>Intensidad (cuentas raw)</th>
                         </tr>
                     </thead>
-                    <tbody id="tablaMuestrasBody"></tbody>
+                    <tbody id="channelsTableBody"></tbody>
                 </table>
             </div>
         </article>
@@ -238,229 +248,21 @@
 
     <button onclick="volverArriba()" id="btnVolverArriba" title="Volver arriba">↑</button>
     <script src="script.js"></script>
+    <script src="dashboard-app.js"></script>
     <script>
-        const USER_KEY = 'sias_cuenta_usuario';
-        const SAMPLES_KEY = 'sias_muestras_espectrales';
-        const BANDAS_NM = [415, 445, 480, 515, 555, 590, 610, 630, 680, 730, 760, 810, 860];
-
-        const MUESTRAS_INICIALES = [
-            {
-                nombre: 'Muestra Base · Suelo Franco',
-                operador: 'SIAS-Demo',
-                ubicacion: 'Xalapa, Veracruz, México',
-                valores: [3120, 4050, 5210, 6890, 8450, 10320, 11890, 13410, 14820, 13950, 12640, 11200, 9840]
-            },
-            {
-                nombre: 'Muestra Húmeda · Parcela B',
-                operador: 'SIAS-Demo',
-                ubicacion: 'Xalapa, Veracruz, México',
-                valores: [2410, 3190, 4120, 5340, 6780, 8120, 9240, 10150, 11040, 9620, 8410, 7350, 6490]
-            }
-        ];
-
-        let chartInstance = null;
-
-        function obtenerUsuarioActivo() {
-            const raw = localStorage.getItem(USER_KEY);
+        (function () {
+            const raw = localStorage.getItem('sias_cuenta_usuario');
             const pill = document.getElementById('operatorStatusPill');
             const badge = document.getElementById('navUserBadge');
-
-            if (!raw) {
-                pill.textContent = '● Modo consulta libre (sin registro obligatorio)';
-                badge.textContent = 'Crear usuario';
-                return { id_nombre: 'Invitado', ubicacion: 'Xalapa, Veracruz, México' };
+            if (raw) {
+                const u = JSON.parse(raw);
+                const ubic = [u.ciudad, u.estado, u.pais].filter(Boolean).join(', ');
+                if (pill) pill.textContent = '● Operador: ' + u.id_nombre + (ubic ? ' (' + ubic + ')' : '');
+                if (badge && u.id_nombre) badge.textContent = '● ' + u.id_nombre;
+            } else {
+                if (pill) pill.textContent = '● Modo consulta libre (sin registro obligatorio)';
             }
-
-            const u = JSON.parse(raw);
-            const ubic = [u.ciudad, u.estado, u.pais].filter(Boolean).join(', ');
-            pill.textContent = '● Operador activo: ' + u.id_nombre + ' (' + ubic + ')';
-            badge.textContent = '● ' + u.id_nombre;
-            return { id_nombre: u.id_nombre, ubicacion: ubic };
-        }
-
-        function obtenerMuestras() {
-            const raw = localStorage.getItem(SAMPLES_KEY);
-            if (!raw) {
-                localStorage.setItem(SAMPLES_KEY, JSON.stringify(MUESTRAS_INICIALES));
-                return MUESTRAS_INICIALES;
-            }
-            return JSON.parse(raw);
-        }
-
-        function guardarMuestras(lista) {
-            localStorage.setItem(SAMPLES_KEY, JSON.stringify(lista));
-        }
-
-        function calcularMetricas(valores) {
-            let maxVal = -1;
-            let maxIdx = 0;
-            valores.forEach((v, i) => {
-                if (v > maxVal) {
-                    maxVal = v;
-                    maxIdx = i;
-                }
-            });
-            return { picoNm: BANDAS_NM[maxIdx], maxRaw: maxVal };
-        }
-
-        function renderizarGrafica(muestra) {
-            const { picoNm, maxRaw } = calcularMetricas(muestra.valores);
-            document.getElementById('kpiMuestraId').textContent = muestra.nombre;
-            document.getElementById('kpiUbicacion').textContent = 'Operador: ' + muestra.operador + ' · ' + muestra.ubicacion;
-            document.getElementById('kpiPicoNm').textContent = picoNm + ' nm';
-            document.getElementById('kpiIntensidadRaw').textContent = maxRaw.toLocaleString('es-MX') + ' cuentas';
-
-            const ctx = document.getElementById('espectroChart').getContext('2d');
-            if (chartInstance) chartInstance.destroy();
-
-            chartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: BANDAS_NM.map(nm => nm + ' nm'),
-                    datasets: [{
-                        label: muestra.nombre + ' (Cuentas Raw ADC)',
-                        data: muestra.valores,
-                        borderColor: '#0f5132',
-                        backgroundColor: 'rgba(15, 81, 50, 0.14)',
-                        borderWidth: 2.5,
-                        pointRadius: 4,
-                        pointBackgroundColor: '#0f5132',
-                        fill: true,
-                        tension: 0.32
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: true }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'Intensidad (cuentas raw)' }
-                        },
-                        x: {
-                            title: { display: true, text: 'Longitud de onda (nm)' }
-                        }
-                    }
-                }
-            });
-        }
-
-        function renderizarTabla() {
-            const lista = obtenerMuestras();
-            const tbody = document.getElementById('tablaMuestrasBody');
-            tbody.innerHTML = '';
-
-            lista.forEach((m) => {
-                const { picoNm, maxRaw } = calcularMetricas(m.valores);
-                const tr = document.createElement('tr');
-                tr.innerHTML =
-                    '<td><strong>' + m.nombre + '</strong></td>' +
-                    '<td>' + m.operador + '</td>' +
-                    '<td>' + m.ubicacion + '</td>' +
-                    '<td>' + picoNm + ' nm</td>' +
-                    '<td>' + maxRaw.toLocaleString('es-MX') + '</td>' +
-                    '<td>' + m.valores[0] + '</td>' +
-                    '<td>' + m.valores[2] + '</td>' +
-                    '<td>' + m.valores[4] + '</td>' +
-                    '<td>' + m.valores[8] + '</td>' +
-                    '<td>' + m.valores[9] + '</td>' +
-                    '<td>' + m.valores[11] + '</td>' +
-                    '<td>' + m.valores[12] + '</td>';
-
-                tr.addEventListener('click', () => renderizarGrafica(m));
-                tbody.appendChild(tr);
-            });
-
-            if (lista.length > 0) renderizarGrafica(lista[0]);
-        }
-
-        document.getElementById('btnSimularEsp32').addEventListener('click', function () {
-            const usuario = obtenerUsuarioActivo();
-            const etiquetaInput = document.getElementById('inputEtiquetaMuestra');
-            const lista = obtenerMuestras();
-            const nombre = etiquetaInput.value.trim() || ('Captura ESP32 #' + (lista.length + 1));
-
-            const nuevosValores = BANDAS_NM.map((_, idx) => {
-                const base = 3200 + Math.sin((idx / BANDAS_NM.length) * Math.PI) * 10500;
-                const ruido = Math.floor(Math.random() * 1400 - 700);
-                return Math.max(500, Math.round(base + ruido));
-            });
-
-            const nuevaMuestra = {
-                nombre: nombre,
-                operador: usuario.id_nombre,
-                ubicacion: usuario.ubicacion,
-                valores: nuevosValores
-            };
-
-            lista.unshift(nuevaMuestra);
-            guardarMuestras(lista);
-            etiquetaInput.value = '';
-            renderizarTabla();
-        });
-
-        document.getElementById('inputCsvFile').addEventListener('change', function (e) {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function (evt) {
-                const lines = evt.target.result.split(/\r?\n/).filter(l => l.trim() !== '');
-                const nums = [];
-                lines.forEach(line => {
-                    const parts = line.split(/[,;]/);
-                    const val = parseFloat(parts[parts.length - 1]);
-                    if (!isNaN(val)) nums.push(Math.round(val));
-                });
-
-                if (nums.length >= 6) {
-                    const ajustados = BANDAS_NM.map((_, i) => nums[i] !== undefined ? nums[i] : nums[nums.length - 1]);
-                    const usuario = obtenerUsuarioActivo();
-                    const etiqueta = document.getElementById('inputEtiquetaMuestra').value.trim() || file.name.replace('.csv', '');
-                    const lista = obtenerMuestras();
-
-                    lista.unshift({
-                        nombre: etiqueta,
-                        operador: usuario.id_nombre,
-                        ubicacion: usuario.ubicacion,
-                        valores: ajustados
-                    });
-
-                    guardarMuestras(lista);
-                    renderizarTabla();
-                } else {
-                    alert('El CSV debe contener al menos 6 valores numéricos espectrales.');
-                }
-            };
-            reader.readAsText(file);
-        });
-
-        document.getElementById('btnExportarCsv').addEventListener('click', function () {
-            const lista = obtenerMuestras();
-            let csv = 'Muestra,Operador,Ubicacion,' + BANDAS_NM.map(n => n + 'nm').join(',') + '\n';
-            lista.forEach(m => {
-                csv += '"' + m.nombre + '","' + m.operador + '","' + m.ubicacion + '",' + m.valores.join(',') + '\n';
-            });
-
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'muestras_espectrales_sias.csv';
-            a.click();
-            URL.revokeObjectURL(url);
-        });
-
-        document.getElementById('btnLimpiarHistorial').addEventListener('click', function () {
-            guardarMuestras(MUESTRAS_INICIALES);
-            renderizarTabla();
-        });
-
-        obtenerUsuarioActivo();
-        renderizarTabla();
+        })();
     </script>
 </body>
 </html>

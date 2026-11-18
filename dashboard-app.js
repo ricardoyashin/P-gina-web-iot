@@ -185,7 +185,7 @@ function handleFileUpload(event) {
             } else if (file.name.endsWith(".csv")) {
                 const lines = content.trim().split(/\r?\n/);
                 lines.forEach((line, index) => {
-                    if (index === 0 && isNaN(Number(line.split(",")[0]))) return; // Saltar encabezado
+                    if (index === 0 && isNaN(Number(line.split(",")[0]))) return;
                     const nums = line.split(",").map(Number).filter(n => !isNaN(n));
                     if (nums.length >= 14) {
                         samples.unshift({

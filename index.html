@@ -5,6 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema Integral de Análisis de Suelos (SIAS)</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos complementarios para contenedores de imágenes en Hardware y Equipo */
+        .media-box {
+            width: 100%;
+            height: 170px;
+            border-radius: 12px;
+            background: #f1f5f3;
+            border: 1px dashed #cbd5e1;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+        .media-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .media-placeholder {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 0.75rem;
+        }
+        .esp32-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1.4fr;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .esp32-media {
+            height: 240px;
+            margin-bottom: 0;
+        }
+        .avatar-box {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: #e6f4ef;
+            border: 2px solid #0f5132;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #0f5132;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+        .avatar-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        @media (max-width: 820px) {
+            .esp32-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -23,14 +86,14 @@
                     <li><a href="index.html" class="active-link">Inicio</a></li>
                     <li><a href="#problematica">Problemática</a></li>
                     <li><a href="#limitaciones">Limitaciones</a></li>
-                    <li><a href="#contexto">Contexto del proyecto</a></li>
-                    <li><a href="#contexto">Sensores utilizados</a></li>
-                    <li><a href="#contexto">1</a></li>
+                    <li><a href="#hardware">Hardware</a></li>
+                    <li><a href="#equipo">Equipo</a></li>
                 </ul>
             </div>
 
-<div class="nav-right">
+            <div class="nav-right">
                 <a href="dashboard.html" class="btn btn-soft">Análisis de muestras</a>
+                <a href="registro.html" class="btn btn-outline">Crear usuario</a>
                 <!-- <a href="app.html" class="btn btn-outline">Vista móvil ↗</a> -->
             </div>
 
@@ -150,6 +213,121 @@
                     <a href="dashboard.html" class="btn btn-soft">Ir al análisis de muestras →</a>
                 </div>
             </article>
+        </section>
+
+        <!-- Bloque 4: Hardware (Sensores Ópticos y Nodo ESP32) -->
+        <section id="hardware">
+            <div class="section-heading">
+                <span class="section-kicker">INSTRUMENTACIÓN Y HARDWARE EMBEBIDO</span>
+                <h2>Sensores espectrales y unidad de adquisición</h2>
+                <p>Combinación de sensores multiespectrales en el rango visible e infrarrojo cercano (NIR) gestionados por un sistema embebido IoT con encapsulado óptico cerrado.</p>
+            </div>
+
+            <!-- Tarjetas de los 3 Sensores -->
+            <div class="kpi-grid" style="margin-bottom: 1.5rem;">
+                <article class="card kpi-card">
+                    <div class="media-box">
+                        <img src="img/as7341.jpg" alt="Sensor multiespectral AS7341" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="media-placeholder" style="display:none;">Subir imagen a <strong>img/as7341.jpg</strong></span>
+                    </div>
+                    <span class="pill pill-green" style="width: fit-content;">Espectro Visible (415 – 680 nm)</span>
+                    <h3 class="card-topic-title">Sensor AMS AS7341</h3>
+                    <p class="kpi-foot">Sensor multiespectral de 8 canales en el espectro visible (415, 445, 480, 515, 555, 590, 630 y 680 nm) más canal Clear y NIR auxiliar por interfaz I2C. Permite caracterizar la coloración superficial y respuesta radiométrica del suelo.</p>
+                </article>
+
+                <article class="card kpi-card">
+                    <div class="media-box">
+                        <img src="img/as7263.jpg" alt="Sensor infrarrojo cercano AS7263" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="media-placeholder" style="display:none;">Subir imagen a <strong>img/as7263.jpg</strong></span>
+                    </div>
+                    <span class="pill pill-green" style="width: fit-content;">Infrarrojo Cercano (610 – 860 nm)</span>
+                    <h3 class="card-topic-title">Sensor AMS AS7263</h3>
+                    <p class="kpi-foot">Sensor espectral NIR calibrado de 6 canales (610, 680, 730, 760, 810 y 860 nm) con comunicación I2C. Detecta bandas de absorción asociadas a humedad, compuestos orgánicos y propiedades fisicoquímicas.</p>
+                </article>
+
+                <article class="card kpi-card">
+                    <div class="media-box">
+                        <img src="img/hamamatsu.jpg" alt="Microespectrómetro Hamamatsu C12880MA" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="media-placeholder" style="display:none;">Subir imagen a <strong>img/hamamatsu.jpg</strong></span>
+                    </div>
+                    <span class="pill pill-amber" style="width: fit-content;">Alta Resolución (340 – 850 nm)</span>
+                    <h3 class="card-topic-title">Hamamatsu C12880MA</h3>
+                    <p class="kpi-foot">Microespectrómetro MEMS ultracompacto de 288 píxeles espectrales en fase de integración avanzada, orientado a obtener firmas continuas de alta resolución para modelado quimiométrico fino.</p>
+                </article>
+            </div>
+
+            <!-- Tarjeta Ancha del Microcontrolador ESP32 -->
+            <article class="card">
+                <div class="esp32-grid">
+                    <div class="media-box esp32-media">
+                        <img src="img/esp32-prototipo.jpg" alt="Nodo embebido ESP32 y prototipo óptico SIAS" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="media-placeholder" style="display:none;">Subir foto del prototipo / ESP32 a <strong>img/esp32-prototipo.jpg</strong></span>
+                    </div>
+
+                    <div>
+                        <span class="section-kicker">UNIDAD DE CONTROL Y TELEMETRÍA</span>
+                        <h3 style="margin: 0.35rem 0 0.75rem; font-size: 1.25rem;">Microcontrolador ESP32 + Encapsulado Óptico</h3>
+                        <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 0.85rem;">
+                            Procesador de 32 bits de doble núcleo (Xtensa LX6 hasta 240 MHz) con conectividad Wi-Fi 802.11 b/g/n y bus I2C para adquisición simultánea de los sensores ópticos dentro de una cámara cerrada impresa en 3D que bloquea la luz ambiental.
+                        </p>
+                        <ul class="status-list">
+                            <li class="status-item">
+                                <div>
+                                    <strong>Camino 1 · Operación local en parcela (192.168.4.1)</strong>
+                                    <span>Genera su propio punto de acceso Wi-Fi con servidor web embebido para visualizar la curva en tiempo real, identificar pico máximo, intensidad y descargar el archivo CSV sin internet.</span>
+                                </div>
+                            </li>
+                            <li class="status-item">
+                                <div>
+                                    <strong>Camino 2 · Empaquetado y transporte a la nube</strong>
+                                    <span>Serializa las lecturas de 14 bandas en formato JSON/CSV para su envío hacia la plataforma web compartida y posterior análisis en Python.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Bloque 5: Integrantes del Proyecto -->
+        <section id="equipo">
+            <div class="section-heading">
+                <span class="section-kicker">CRÉDITOS ACADÉMICOS</span>
+                <h2>Integrantes del proyecto</h2>
+                <p>Desarrollo tecnológico e investigación de posgrado en el Instituto Tecnológico Superior de Xalapa (ITSX).</p>
+            </div>
+
+            <div class="kpi-grid">
+                <article class="card kpi-card">
+                    <div class="avatar-box">
+                        <img src="img/autor.jpg" alt="Ricardo Yashin González Mundo" onerror="this.style.display='none';">
+                        <span>RY</span>
+                    </div>
+                    <span class="pill pill-green" style="width: fit-content;">Autor · Desarrollo e Investigación</span>
+                    <h3 class="card-topic-title">Ing. Ricardo Yashin González Mundo</h3>
+                    <p class="kpi-foot">Estudiante de la Maestría en Sistemas Computacionales · Instituto Tecnológico Superior de Xalapa (ITSX). Diseño de hardware óptico, firmware embebido en ESP32 y plataforma web SIAS.</p>
+                </article>
+
+                <article class="card kpi-card">
+                    <div class="avatar-box">
+                        <img src="img/director.jpg" alt="Director de tesis" onerror="this.style.display='none';">
+                        <span>DT</span>
+                    </div>
+                    <span class="pill pill-amber" style="width: fit-content;">Dirección de Tesis</span>
+                    <h3 class="card-topic-title">Nombre del Director(a) de Tesis</h3>
+                    <p class="kpi-foot">Profesor(a) Investigador(a) · Posgrado en Sistemas Computacionales, Instituto Tecnológico Superior de Xalapa (ITSX). Asesoría metodológica y arquitectura del sistema.</p>
+                </article>
+
+                <article class="card kpi-card">
+                    <div class="avatar-box">
+                        <img src="img/codirector.jpg" alt="Codirector o colaborador" onerror="this.style.display='none';">
+                        <span>CD</span>
+                    </div>
+                    <span class="pill pill-amber" style="width: fit-content;">Codirección / Colaboración</span>
+                    <h3 class="card-topic-title">Nombre del Codirector(a) / Colaborador(a)</h3>
+                    <p class="kpi-foot">Asesoría técnica en instrumentación óptica, validación experimental y análisis espectral de muestras de suelo.</p>
+                </article>
+            </div>
         </section>
 
     </main>

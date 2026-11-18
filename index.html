@@ -3,74 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear usuario · Sistema Integral de Análisis de Suelos (SIAS)</title>
+    <title>Sistema Integral de Análisis de Suelos (SIAS)</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .auth-layout {
-            display: grid;
-            grid-template-columns: 1fr 1.35fr;
-            gap: 1.5rem;
-            align-items: start;
-            margin: 1.5rem 0 2.5rem;
+        html {
+            scroll-behavior: smooth;
         }
-        .form-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.85rem;
-        }
-        .form-grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 0.85rem;
-        }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-            margin-bottom: 0.85rem;
-        }
-        .form-group label {
-            font-size: 0.83rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-        .form-group input {
+        /* Estilos complementarios para contenedores de imágenes en Hardware y Equipo */
+        .media-box {
             width: 100%;
-            padding: 0.65rem 0.85rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-family: inherit;
-            background: #ffffff;
-            color: var(--text-main);
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .form-group input:focus {
-            border-color: #0f5132;
-            box-shadow: 0 0 0 3px rgba(15, 81, 50, 0.12);
-        }
-        .saved-profile-card {
-            margin-top: 1.25rem;
-            padding: 1rem 1.15rem;
+            height: 170px;
             border-radius: 12px;
+            background: #f1f5f3;
+            border: 1px dashed #cbd5e1;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+        .media-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .media-placeholder {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 0.75rem;
+        }
+        .esp32-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1.4fr;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .esp32-media {
+            height: 240px;
+            margin-bottom: 0;
+        }
+        .avatar-box {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
             background: #e6f4ef;
-            border: 1px solid #b7e4d3;
+            border: 2px solid #0f5132;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
             color: #0f5132;
-            display: none;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
         }
-        .saved-profile-card h4 {
-            margin: 0 0 0.45rem;
-            font-size: 0.95rem;
-        }
-        .saved-profile-card p {
-            margin: 0.2rem 0;
-            font-size: 0.85rem;
+        .avatar-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         @media (max-width: 820px) {
-            .auth-layout,
-            .form-grid-2,
-            .form-grid-3 {
+            .esp32-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -78,6 +74,7 @@
 </head>
 <body>
 
+    <!-- Barra de Navegación -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-left">
@@ -89,154 +86,269 @@
                     </div>
                 </a>
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="dashboard.html">Análisis de muestras</a></li>
+                    <li><a href="index.html" class="active-link">Inicio</a></li>
+                    <li><a href="#problematica">Problemática</a></li>
+                    <li><a href="#limitaciones">Limitaciones</a></li>
+                    <li><a href="#hardware">Hardware</a></li>
+                    <li><a href="#equipo">Equipo</a></li>
                 </ul>
             </div>
 
             <div class="nav-right">
                 <a href="dashboard.html" class="btn btn-soft">Análisis de muestras</a>
-                <a href="registro.html" class="btn btn-outline active-link" id="navUserBadge">Crear usuario</a>
+                <a href="registro.html" class="btn btn-outline" id="navUserBadge">Crear usuario</a>
             </div>
+
+            <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú de navegación">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
         </div>
     </nav>
 
+    <!-- Contenido Principal -->
     <main class="main-container">
-        <div class="section-heading">
-            <span class="section-kicker">REPOSITORIO COMPARTIDO SIAS</span>
-            <h2>Registro de cuenta de operador</h2>
-            <p>Crea tu perfil para vincular tus lecturas espectrales con tu identificador y ubicación geográfica.</p>
-        </div>
 
-        <div class="auth-layout">
+        <!-- Banner Principal -->
+        <section class="hero-banner">
+            <div class="hero-content">
+                <span class="badge badge-mint">● SISTEMA INTEGRAL DE ANÁLISIS DE SUELOS (SIAS)</span>
+                <h1>Monitoreo no destructivo del suelo mediante espectroscopía óptica e IoT.</h1>
+                <p>El análisis oportuno de los elementos químicos y sustancias que contaminan el suelo es la base de la agricultura de precisión. Integramos espectroscopía óptica con sistemas embebidos del internet de las cosas (IoT) y plataforma en la nube.</p>
+                <div class="hero-actions">
+                    <a href="dashboard.html" class="btn btn-light">Analizar muestras de suelo →</a>
+                    <a href="#problematica" class="btn btn-hero-ghost">Leer problemática</a>
+                </div>
+            </div>
+
+            <div class="hero-stats">
+                <span class="hero-number">03</span>
+                <span class="hero-stat-title">Capas del sistema</span>
+                <span class="hero-stat-detail">Sensado óptico · Nodo IoT · Nube</span>
+                <span class="hero-stat-sub">AS7341 · AS7263 · Hamamatsu</span>
+            </div>
+        </section>
+
+        <!-- Bloque 1: Problemática -->
+        <section id="problematica">
+            <div class="section-heading">
+                <span class="section-kicker">PROBLEMÁTICA</span>
+                <h2>Métodos convencionales frente a la espectroscopía óptica</h2>
+                <p>El análisis oportuno de los elementos químicos y sustancias que contaminan el suelo es la base de la agricultura de precisión.</p>
+            </div>
+
+            <div class="kpi-grid">
+                <article class="card kpi-card">
+                    <span class="pill pill-amber" style="width: fit-content;">Métodos convencionales</span>
+                    <h3 class="card-topic-title">Procesos invasivos</h3>
+                    <p class="kpi-foot">Sin embargo, los métodos de análisis convencionales son procesos invasivos (Carter &amp; Gregorich, 2008). Estas técnicas alteran las características de las muestras de forma permanente e impiden que el suelo vuelva a su estado original tras el estudio.</p>
+                </article>
+
+                <article class="card kpi-card">
+                    <span class="pill pill-amber" style="width: fit-content;">Gestión sostenible</span>
+                    <h3 class="card-topic-title">Necesidad de métodos no destructivos</h3>
+                    <p class="kpi-foot">La alteración permanente de las muestras tras el estudio hace necesario adoptar métodos no destructivos para lograr una gestión agrícola sostenible (Gebbers &amp; Adamchuk, 2010).</p>
+                </article>
+
+                <article class="card kpi-card">
+                    <span class="pill pill-green" style="width: fit-content;">Alternativa óptica</span>
+                    <h3 class="card-topic-title">Espectroscopia y brecha de decisión</h3>
+                    <p class="kpi-foot">Como alternativa, la espectroscopia se ha consolidado como una técnica óptica no invasiva capaz de caracterizar el suelo rápidamente (Ducanchez et al., 2021). A pesar del uso de esta tecnología, persiste una limitación técnica: la ausencia de un sistema unificado que traduzca los datos espectrales en decisiones agronómicas en tiempo real.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Bloque 2: Las 3 Limitaciones Principales -->
+        <section id="limitaciones">
+            <div class="section-heading">
+                <span class="section-kicker">ECOSISTEMA TECNOLÓGICO</span>
+                <h2>Tres limitaciones principales actuales</h2>
+                <p>Esta desconexión técnica y la falta de accesibilidad económica crean una brecha entre la recolección del dato espectral en campo y la toma de decisiones, lo que mantiene una gestión agrícola reactiva en lugar de una proactiva y basada en datos.</p>
+            </div>
+
+            <div class="kpi-grid">
+                <article class="card kpi-card">
+                    <span class="pill pill-green" style="width: fit-content;">Limitación 1</span>
+                    <h3 class="card-topic-title">Operación aislada en campo</h3>
+                    <p class="kpi-foot">Los equipos de espectroscopia en campo operan de manera aislada y capturan datos que no se pueden procesar de inmediato.</p>
+                </article>
+
+                <article class="card kpi-card">
+                    <span class="pill pill-green" style="width: fit-content;">Limitación 2</span>
+                    <h3 class="card-topic-title">Sin transmisión automatizada a la nube</h3>
+                    <p class="kpi-foot">No existe una infraestructura tecnológica que automatice la transmisión de los datos desde un dispositivo portátil (IoT) hacia una plataforma en la nube para su análisis y visualización.</p>
+                </article>
+
+                <article class="card kpi-card">
+                    <span class="pill pill-green" style="width: fit-content;">Limitación 3</span>
+                    <h3 class="card-topic-title">Costos elevados</h3>
+                    <p class="kpi-foot">Los equipos comerciales de espectroscopia de alta precisión tienen costos elevados, lo que limita su accesibilidad y restringe su despliegue a gran escala en el sector agrícola.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Bloque 3: Contexto y Justificación del Proyecto -->
+        <section class="two-col-grid" id="contexto">
             <article class="card">
                 <div class="card-header">
-                    <span class="section-kicker">TRAZABILIDAD DE DATOS</span>
-                    <h2>¿Por qué crear una cuenta?</h2>
+                    <span class="section-kicker">CONTEXTO</span>
+                    <h2>Retos de productividad y gestión sostenible</h2>
                 </div>
-                <ul class="status-list">
-                    <li class="status-item">
-                        <div>
-                            <strong>ID / Nombre de la cuenta</strong>
-                            <span>Asocia cada muestra capturada con el ESP32 o subida por CSV a un investigador o parcela específica.</span>
-                        </div>
-                    </li>
-                    <li class="status-item">
-                        <div>
-                            <strong>Ubicación base (País, Estado y Ciudad)</strong>
-                            <span>Contextualiza regionalmente las muestras de suelo y deja listo el perfil para futuras integraciones con APIs geográficas o climáticas.</span>
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="saved-profile-card" id="perfilActivoCard">
-                    <h4>● Cuenta activa en este navegador</h4>
-                    <p id="resumenCuenta"></p>
-                    <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                        <a href="dashboard.html" class="btn btn-soft" style="font-size: 0.82rem; padding: 0.45rem 0.85rem;">Ir a analizar muestras →</a>
-                        <button type="button" id="btnCerrarCuenta" class="btn btn-outline" style="font-size: 0.82rem; padding: 0.45rem 0.85rem;">Cerrar cuenta</button>
-                    </div>
-                </div>
+                <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1rem;">
+                    Actualmente, las tecnologías de la información desempeñan un papel fundamental en la actividad humana y ofrecen soluciones a problemas comunes como la sostenibilidad en diferentes áreas. Al mismo tiempo, el crecimiento de la población ha provocado que la agricultura, tal como se conoce en la actualidad, no cumpla con las necesidades alimentarias, por lo que existen diversas propuestas de sistemas inteligentes orientadas a atender los retos de productividad y gestión sostenible en el sector agrícola.
+                </p>
+                <p style="font-size: 0.92rem; color: var(--text-muted);">
+                    Dentro de este ámbito, el monitoreo no destructivo del suelo mediante espectroscopía óptica integrada con sistemas embebidos del internet de las cosas (IoT) y plataforma en la nube constituye una línea de desarrollo relevante frente a métodos actuales de análisis químico.
+                </p>
             </article>
 
             <article class="card">
                 <div class="card-header">
-                    <span class="section-kicker">FORMULARIO DE REGISTRO</span>
-                    <h2>Datos del usuario</h2>
+                    <span class="section-kicker">ENFOQUE DEL SISTEMA (SIAS)</span>
+                    <h2>Brecha entre equipos comerciales y prototipos</h2>
                 </div>
-
-                <form id="formRegistroCompleto">
-                    <div class="form-group">
-                        <label for="regAccountId">ID / Nombre de la cuenta</label>
-                        <input type="text" id="regAccountId" name="regAccountId" placeholder="Ej. SIAS-RYGM01 o Ricardo González" required>
-                    </div>
-
-                    <div class="form-grid-2">
-                        <div class="form-group">
-                            <label for="regEmail">Correo electrónico</label>
-                            <input type="email" id="regEmail" name="regEmail" placeholder="usuario@institucion.edu.mx" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="regPassword">Contraseña</label>
-                            <input type="password" id="regPassword" name="regPassword" placeholder="Mínimo 8 caracteres" minlength="8" required>
-                        </div>
-                    </div>
-
-                    <div class="form-grid-3">
-                        <div class="form-group">
-                            <label for="regCountry">País</label>
-                            <input type="text" id="regCountry" name="regCountry" placeholder="Ej. México" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="regState">Estado</label>
-                            <input type="text" id="regState" name="regState" placeholder="Ej. Veracruz" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="regCity">Ciudad</label>
-                            <input type="text" id="regCity" name="regCity" placeholder="Ej. Xalapa" required>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-soft" style="width: 100%; justify-content: center; margin-top: 0.35rem;">
-                        Guardar y crear cuenta
-                    </button>
-                </form>
+                <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1rem;">
+                    En la literatura especializada se observa una brecha entre los equipos comerciales de alta precisión, cuyo costo elevado restringe su despliegue a gran escala en el sector agrícola, y los prototipos portátiles experimentales, los cuales suelen operar de manera aislada en campo sin procesamiento inmediato ni transmisión automatizada hacia la nube para su análisis y visualización oportuna.
+                </p>
+                <div class="hero-actions" style="margin-top: 1.25rem;">
+                    <a href="dashboard.html" class="btn btn-soft">Ir al análisis de muestras →</a>
+                </div>
             </article>
-        </div>
+        </section>
+
+        <!-- Bloque 4: Hardware (Sensores Ópticos y Nodo ESP32) -->
+        <section id="hardware">
+            <div class="section-heading">
+                <span class="section-kicker">INSTRUMENTACIÓN Y HARDWARE EMBEBIDO</span>
+                <h2>Sensores espectrales y unidad de adquisición</h2>
+                <p>Combinación de sensores multiespectrales en el rango visible e infrarrojo cercano (NIR) gestionados por un sistema embebido IoT con encapsulado óptico cerrado.</p>
+            </div>
+
+            <!-- Tarjetas de los 3 Sensores -->
+            <div class="kpi-grid" style="margin-bottom: 1.5rem;">
+                <article class="card kpi-card">
+                    <div class="media-box">
+                        <img src="img/as7341.jpg" alt="Sensor multiespectral AS7341" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="media-placeholder" style="display:none;">Subir imagen a <strong>img/as7341.jpg</strong></span>
+                    </div>
+                    <span class="pill pill-green" style="width: fit-content;">Espectro Visible (415 – 680 nm)</span>
+                    <h3 class="card-topic-title">Sensor AMS AS7341</h3>
+                    <p class="kpi-foot">Sensor multiespectral de 8 canales en el espectro visible (415, 445, 480, 515, 555, 590, 630 y 680 nm) más canal Clear y NIR auxiliar por interfaz I2C. Permite caracterizar la coloración superficial y respuesta radiométrica del suelo.</p>
+                </article>
+
+                <article class="card kpi-card">
+                    <div class="media-box">
+                        <img src="img/as7263.jpg" alt="Sensor infrarrojo cercano AS7263" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="media-placeholder" style="display:none;">Subir imagen a <strong>img/as7263.jpg</strong></span>
+                    </div>
+                    <span class="pill pill-green" style="width: fit-content;">Infrarrojo Cercano (610 – 860 nm)</span>
+                    <h3 class="card-topic-title">Sensor AMS AS7263</h3>
+                    <p class="kpi-foot">Sensor espectral NIR calibrado de 6 canales (610, 680, 730, 760, 810 y 860 nm) con comunicación I2C. Detecta bandas de absorción asociadas a humedad, compuestos orgánicos y propiedades fisicoquímicas.</p>
+                </article>
+
+                <article class="card kpi-card">
+                    <div class="media-box">
+                        <img src="img/hamamatsu.jpg" alt="Microespectrómetro Hamamatsu C12880MA" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="media-placeholder" style="display:none;">Subir imagen a <strong>img/hamamatsu.jpg</strong></span>
+                    </div>
+                    <span class="pill pill-amber" style="width: fit-content;">Alta Resolución (340 – 850 nm)</span>
+                    <h3 class="card-topic-title">Hamamatsu C12880MA</h3>
+                    <p class="kpi-foot">Microespectrómetro MEMS ultracompacto de 288 píxeles espectrales en fase de integración avanzada, orientado a obtener firmas continuas de alta resolución para modelado quimiométrico fino.</p>
+                </article>
+            </div>
+
+            <!-- Tarjeta Ancha del Microcontrolador ESP32 -->
+            <article class="card">
+                <div class="esp32-grid">
+                    <div class="media-box esp32-media">
+                        <img src="img/esp32-prototipo.jpg" alt="Nodo embebido ESP32 y prototipo óptico SIAS" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="media-placeholder" style="display:none;">Subir foto del prototipo / ESP32 a <strong>img/esp32-prototipo.jpg</strong></span>
+                    </div>
+
+                    <div>
+                        <span class="section-kicker">UNIDAD DE CONTROL Y TELEMETRÍA</span>
+                        <h3 style="margin: 0.35rem 0 0.75rem; font-size: 1.25rem;">Microcontrolador ESP32 + Encapsulado Óptico</h3>
+                        <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 0.85rem;">
+                            Procesador de 32 bits de doble núcleo (Xtensa LX6 hasta 240 MHz) con conectividad Wi-Fi 802.11 b/g/n y bus I2C para adquisición simultánea de los sensores ópticos dentro de una cámara cerrada impresa en 3D que bloquea la luz ambiental.
+                        </p>
+                        <ul class="status-list">
+                            <li class="status-item">
+                                <div>
+                                    <strong>Camino 1 · Operación local en parcela (192.168.4.1)</strong>
+                                    <span>Genera su propio punto de acceso Wi-Fi con servidor web embebido para visualizar la curva en tiempo real, identificar pico máximo, intensidad y descargar el archivo CSV sin internet.</span>
+                                </div>
+                            </li>
+                            <li class="status-item">
+                                <div>
+                                    <strong>Camino 2 · Empaquetado y transporte a la nube</strong>
+                                    <span>Serializa las lecturas de 14 bandas en formato JSON/CSV para su envío hacia la plataforma web compartida y posterior análisis en Python.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Bloque 5: Integrantes del Proyecto -->
+        <section id="equipo">
+            <div class="section-heading">
+                <span class="section-kicker">CRÉDITOS ACADÉMICOS</span>
+                <h2>Integrantes del proyecto</h2>
+                <p>Desarrollo tecnológico e investigación de posgrado en el Instituto Tecnológico Superior de Xalapa (ITSX).</p>
+            </div>
+
+            <div class="kpi-grid">
+                <article class="card kpi-card">
+                    <div class="avatar-box">
+                        <img src="img/autor.jpg" alt="Ricardo Yashin González Mundo" onerror="this.style.display='none';">
+                        <span>RY</span>
+                    </div>
+                    <span class="pill pill-green" style="width: fit-content;">Autor · Desarrollo e Investigación</span>
+                    <h3 class="card-topic-title">Ing. Ricardo Yashin González Mundo</h3>
+                    <p class="kpi-foot">Estudiante de la Maestría en Sistemas Computacionales · Instituto Tecnológico Superior de Xalapa (ITSX). Diseño de hardware óptico, firmware embebido en ESP32 y plataforma web SIAS.</p>
+                </article>
+
+                <article class="card kpi-card">
+                    <div class="avatar-box">
+                        <img src="img/director.jpg" alt="Director de tesis" onerror="this.style.display='none';">
+                        <span>DT</span>
+                    </div>
+                    <span class="pill pill-amber" style="width: fit-content;">Dirección de Tesis</span>
+                    <h3 class="card-topic-title">Nombre del Director(a) de Tesis</h3>
+                    <p class="kpi-foot">Profesor(a) Investigador(a) · Posgrado en Sistemas Computacionales, Instituto Tecnológico Superior de Xalapa (ITSX). Asesoría metodológica y arquitectura del sistema.</p>
+                </article>
+
+                <article class="card kpi-card">
+                    <div class="avatar-box">
+                        <img src="img/codirector.jpg" alt="Codirector o colaborador" onerror="this.style.display='none';">
+                        <span>CD</span>
+                    </div>
+                    <span class="pill pill-amber" style="width: fit-content;">Codirección / Colaboración</span>
+                    <h3 class="card-topic-title">Nombre del Codirector(a) / Colaborador(a)</h3>
+                    <p class="kpi-foot">Asesoría técnica en instrumentación óptica, validación experimental y análisis espectral de muestras de suelo.</p>
+                </article>
+            </div>
+        </section>
+
     </main>
 
     <footer class="site-footer">
         <p>Sistema Integral de Análisis de Suelos <strong>(SIAS)</strong> · Monitoreo no destructivo mediante espectroscopía óptica e IoT</p>
     </footer>
 
+    <button onclick="volverArriba()" id="btnVolverArriba" title="Volver arriba">↑</button>
+    <script src="script.js"></script>
     <script>
-        const STORAGE_KEY = 'sias_cuenta_usuario';
-
-        function mostrarCuentaGuardada() {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            const card = document.getElementById('perfilActivoCard');
-            const resumen = document.getElementById('resumenCuenta');
-            const badge = document.getElementById('navUserBadge');
-
-            if (!raw) {
-                card.style.display = 'none';
-                badge.textContent = 'Crear usuario';
-                return;
+        (function () {
+            const raw = localStorage.getItem('sias_cuenta_usuario');
+            if (raw) {
+                const u = JSON.parse(raw);
+                const badge = document.getElementById('navUserBadge');
+                if (badge && u.id_nombre) badge.textContent = '● ' + u.id_nombre;
             }
-
-            const data = JSON.parse(raw);
-            card.style.display = 'block';
-            resumen.innerHTML =
-                '<strong>ID / Cuenta:</strong> ' + data.id_nombre + '<br>' +
-                '<strong>Correo:</strong> ' + data.correo + '<br>' +
-                '<strong>Ubicación:</strong> ' + data.ciudad + ', ' + data.estado + ', ' + data.pais;
-            badge.textContent = '● ' + data.id_nombre;
-        }
-
-        document.getElementById('formRegistroCompleto').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const usuario = {
-                id_nombre: document.getElementById('regAccountId').value.trim(),
-                correo: document.getElementById('regEmail').value.trim(),
-                pais: document.getElementById('regCountry').value.trim(),
-                estado: document.getElementById('regState').value.trim(),
-                ciudad: document.getElementById('regCity').value.trim(),
-                creado_en: new Date().toISOString()
-            };
-
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(usuario));
-            mostrarCuentaGuardada();
-        });
-
-        document.getElementById('btnCerrarCuenta').addEventListener('click', function () {
-            localStorage.removeItem(STORAGE_KEY);
-            mostrarCuentaGuardada();
-        });
-
-        mostrarCuentaGuardada();
+        })();
     </script>
 </body>
 </html>
